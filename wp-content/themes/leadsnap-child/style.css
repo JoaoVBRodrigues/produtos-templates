@@ -697,6 +697,119 @@ a.leadsnap-cta {
 }
 
 /* ================================================================
+   SOCIAL COUNTER CENTERING
+   ================================================================ */
+
+.leadsnap-counter-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ls-counter {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.ls-counter-label {
+  font-family: var(--ls-font-body);
+  font-size: var(--ls-text-sm);
+  color: var(--ls-text-secondary);
+  text-align: center;
+  margin: var(--ls-space-2) auto 0 !important;
+}
+
+/* ================================================================
+   CUSTOM CONTACT FORM (ELEMENTOR FREE COMPATIBLE)
+   ================================================================ */
+
+.leadsnap-custom-form {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ls-space-4);
+  background: var(--ls-bg-secondary);
+  border: 1px solid var(--ls-border);
+  border-radius: var(--ls-radius-xl);
+  padding: var(--ls-space-8);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--ls-shadow-md);
+}
+
+.leadsnap-custom-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ls-accent), var(--ls-highlight));
+}
+
+.leadsnap-form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ls-space-2);
+  text-align: left;
+}
+
+.leadsnap-form-label {
+  font-family: var(--ls-font-body);
+  font-size: var(--ls-text-sm);
+  color: var(--ls-text-secondary);
+  font-weight: 500;
+}
+
+.leadsnap-form-input {
+  background: var(--ls-bg-section) !important;
+  border: 1px solid var(--ls-border) !important;
+  border-radius: var(--ls-radius-md) !important;
+  color: var(--ls-text-primary) !important;
+  font-family: var(--ls-font-body) !important;
+  font-size: var(--ls-text-base) !important;
+  padding: 14px 16px !important;
+  width: 100%;
+  transition: border-color var(--ls-transition-base), outline var(--ls-transition-fast);
+}
+
+.leadsnap-form-input:focus {
+  border-color: var(--ls-accent) !important;
+  outline: 2px solid var(--ls-accent-glow) !important;
+}
+
+.leadsnap-form-acceptance {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--ls-space-2);
+  margin-top: var(--ls-space-2);
+}
+
+.leadsnap-form-acceptance label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ls-space-2);
+  cursor: pointer;
+}
+
+.leadsnap-form-acceptance input[type="checkbox"] {
+  margin-top: 4px;
+  accent-color: var(--ls-accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.leadsnap-submit-btn {
+  width: 100%;
+  margin-top: var(--ls-space-2);
+}
+
+/* ================================================================
    PRINT
    ================================================================ */
 
@@ -706,3 +819,4 @@ a.leadsnap-cta {
     animation: none;
   }
 }
+

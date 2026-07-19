@@ -84,9 +84,10 @@ function ls_set_elementor_data( int $post_id, array $elementor_data ): void {
 	update_post_meta( $post_id, '_elementor_version',       '3.25.0' );
 	update_post_meta( $post_id, '_elementor_page_settings', [
 		'hide_title'     => 'yes',
-		'page_layout'    => 'elementor_full_width',
+		'page_layout'    => 'elementor_canvas',
 		'body_background_color' => '#0B1120',
 	] );
+	update_post_meta( $post_id, '_wp_page_template',        'elementor_canvas' );
 
 	// Invalidate Elementor CSS cache so styles regenerate.
 	delete_post_meta( $post_id, '_elementor_css' );
@@ -452,68 +453,13 @@ function ls_build_landing_page_data(): array {
 							],
 						],
 
-						// Formulário Elementor Forms
+						// Formulário customizado para Elementor Free
 						[
 							'id'         => ls_uid(),
 							'elType'     => 'widget',
-							'widgetType' => 'form',
+							'widgetType' => 'html',
 							'settings'   => [
-								'form_name'     => 'LeadSnap Captura',
-								'form_fields'   => [
-									[
-										'custom_id'   => 'name',
-										'field_type'  => 'text',
-										'field_label' => 'Seu nome completo',
-										'placeholder' => 'Ex: Maria Silva',
-										'required'    => 'true',
-										'width'       => '100',
-									],
-									[
-										'custom_id'   => 'email',
-										'field_type'  => 'email',
-										'field_label' => 'Seu melhor e-mail',
-										'placeholder' => 'Ex: maria@email.com',
-										'required'    => 'true',
-										'width'       => '100',
-									],
-									[
-										'custom_id'   => 'phone',
-										'field_type'  => 'tel',
-										'field_label' => 'WhatsApp (opcional)',
-										'placeholder' => 'Ex: (11) 99999-0000',
-										'required'    => '',
-										'width'       => '100',
-									],
-									[
-										'custom_id'      => 'lgpd',
-										'field_type'     => 'acceptance',
-										'field_label'    => 'Concordo com a <a href="/politica-de-privacidade" target="_blank" style="color:#FF5722">Política de Privacidade</a> e os <a href="/termos-de-uso" target="_blank" style="color:#FF5722">Termos de Uso</a>. Não enviaremos spam.',
-										'required'       => 'true',
-										'acceptance_text' => '',
-										'width'          => '100',
-									],
-								],
-								'submit_actions'       => [ 'redirect' ],
-								'redirect_to'          => home_url( '/obrigado' ),
-								'button_text'          => 'GARANTIR MINHA VAGA AGORA 🚀',
-								'button_background_color'       => '#FF5722',
-								'button_background_hover_color' => '#E64A19',
-								'button_text_color'    => '#ffffff',
-								'button_border_radius' => [ 'top' => '10', 'right' => '10', 'bottom' => '10', 'left' => '10', 'unit' => 'px', 'isLinked' => true ],
-								'button_padding'       => [ 'top' => '18', 'right' => '32', 'bottom' => '18', 'left' => '32', 'unit' => 'px', 'isLinked' => false ],
-								'button_width'         => '100',
-								'form_style'           => '',
-								'label_color'          => '#94A3B8',
-								'input_background_color'  => '#0B1120',
-								'input_border_color'      => 'rgba(255,255,255,0.08)',
-								'input_focus_border_color' => '#FF5722',
-								'input_text_color'        => '#F8FAFC',
-								'input_placeholder_color' => '#64748B',
-								'input_border_radius'     => [ 'top' => '8', 'right' => '8', 'bottom' => '8', 'left' => '8', 'unit' => 'px', 'isLinked' => true ],
-								'input_padding'           => [ 'top' => '14', 'right' => '16', 'bottom' => '14', 'left' => '16', 'unit' => 'px', 'isLinked' => false ],
-								'_element_width'          => 'initial',
-								'_element_custom_width'   => [ 'unit' => 'px', 'size' => 560 ],
-								'css_classes'             => 'leadsnap-form-wrapper',
+								'html' => '[leadsnap_form]',
 							],
 						],
 
@@ -838,7 +784,7 @@ $results[] = [
 	'id'    => null,
 ];
 
-// 4. Definir Front Page
+// 4. Definir Front Page e Configurações Globais
 if ( ! is_wp_error( $landing_id ) ) {
 	update_option( 'show_on_front',  'page' );
 	update_option( 'page_on_front',  $landing_id );
@@ -846,6 +792,29 @@ if ( ! is_wp_error( $landing_id ) ) {
 		'label' => '✅ Front Page configurada',
 		'value' => home_url( '/' ),
 		'id'    => null,
+	];
+}
+
+// Configura links amigáveis e atualiza as regras de reescrita
+update_option( 'permalink_structure', '/%postname%/' );
+flush_rewrite_rules( true );
+$results[] = [
+	'label' => '✅ Permalinks amigáveis configurados (/%postname%/)',
+	'value' => '',
+	'id'    => null,
+];
+
+// Garante que a página de política de privacidade esteja publicada
+$privacy_page = get_page_by_path( 'politica-de-privacidade' );
+if ( $privacy_page ) {
+	wp_update_post( [
+		'ID'          => $privacy_page->ID,
+		'post_status' => 'publish',
+	] );
+	$results[] = [
+		'label' => '✅ Política de Privacidade publicada',
+		'value' => get_permalink( $privacy_page->ID ),
+		'id'    => $privacy_page->ID,
 	];
 }
 

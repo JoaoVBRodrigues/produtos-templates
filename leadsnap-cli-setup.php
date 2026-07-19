@@ -56,8 +56,9 @@ function ls_set_elementor_data( int $post_id, array $data ): void {
 	update_post_meta( $post_id, '_elementor_version',       '3.25.0' );
 	update_post_meta( $post_id, '_elementor_page_settings', [
 		'hide_title'  => 'yes',
-		'page_layout' => 'elementor_full_width',
+		'page_layout' => 'elementor_canvas',
 	] );
+	update_post_meta( $post_id, '_wp_page_template',        'elementor_canvas' );
 	delete_post_meta( $post_id, '_elementor_css' );
 }
 
@@ -304,35 +305,8 @@ function ls_landing_data(): array {
 						'editor' => '<p style="text-align:center;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:17px;margin-bottom:40px">Preencha abaixo e receba o acesso em menos de 1 minuto</p>',
 					] ],
 
-					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'form', 'settings' => [
-						'form_name'   => 'LeadSnap Captura',
-						'form_fields' => [
-							[ 'custom_id' => 'name',  'field_type' => 'text',       'field_label' => 'Seu nome completo',  'placeholder' => 'Ex: Maria Silva',            'required' => 'true',  'width' => '100' ],
-							[ 'custom_id' => 'email', 'field_type' => 'email',      'field_label' => 'Seu melhor e-mail',  'placeholder' => 'Ex: maria@email.com',        'required' => 'true',  'width' => '100' ],
-							[ 'custom_id' => 'phone', 'field_type' => 'tel',        'field_label' => 'WhatsApp (opcional)','placeholder' => 'Ex: (11) 99999-0000',        'required' => '',      'width' => '100' ],
-							[ 'custom_id' => 'lgpd',  'field_type' => 'acceptance', 'field_label' => 'Concordo com a <a href="/politica-de-privacidade" target="_blank" style="color:#FF5722">Política de Privacidade</a> e os <a href="/termos-de-uso" target="_blank" style="color:#FF5722">Termos de Uso</a>.',
-							  'required' => 'true', 'width' => '100' ],
-						],
-						'submit_actions'               => [ 'redirect' ],
-						'redirect_to'                  => home_url( '/obrigado' ),
-						'button_text'                  => 'GARANTIR MINHA VAGA AGORA 🚀',
-						'button_background_color'      => '#FF5722',
-						'button_background_hover_color'=> '#E64A19',
-						'button_text_color'            => '#ffffff',
-						'button_border_radius'         => [ 'top' => '10', 'right' => '10', 'bottom' => '10', 'left' => '10', 'unit' => 'px', 'isLinked' => true ],
-						'button_padding'               => [ 'top' => '18', 'right' => '32', 'bottom' => '18', 'left' => '32', 'unit' => 'px', 'isLinked' => false ],
-						'button_width'                 => '100',
-						'label_color'                  => '#94A3B8',
-						'input_background_color'       => '#0B1120',
-						'input_border_color'           => 'rgba(255,255,255,0.08)',
-						'input_focus_border_color'     => '#FF5722',
-						'input_text_color'             => '#F8FAFC',
-						'input_placeholder_color'      => '#64748B',
-						'input_border_radius'          => [ 'top' => '8', 'right' => '8', 'bottom' => '8', 'left' => '8', 'unit' => 'px', 'isLinked' => true ],
-						'input_padding'                => [ 'top' => '14', 'right' => '16', 'bottom' => '14', 'left' => '16', 'unit' => 'px', 'isLinked' => false ],
-						'css_classes'                  => 'leadsnap-form-wrapper',
-						'_element_width'               => 'initial',
-						'_element_custom_width'        => [ 'unit' => 'px', 'size' => 560 ],
+					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'html', 'settings' => [
+						'html' => '[leadsnap_form]',
 					] ],
 
 				],
@@ -530,10 +504,24 @@ if ( $thankyou_id ) {
 	echo "  [OK] Elementor data aplicado: Obrigado (ID $thankyou_id)\n";
 }
 
-echo "\n3. Configurando Front Page...\n";
+echo "\n3. Configurando Front Page e Configurações Globais...\n";
 update_option( 'show_on_front', 'page' );
 update_option( 'page_on_front', $landing_id );
 echo "  [OK] Front Page = ID $landing_id\n";
+
+// Garante que a estrutura de links amigáveis esteja ativada
+update_option( 'permalink_structure', '/%postname%/' );
+flush_rewrite_rules( true );
+echo "  [OK] Permalinks amigáveis configurados (/%postname%/)\n";
+
+// Garante que a página de política de privacidade esteja publicada (não em rascunho)
+if ( $privacy_id ) {
+	wp_update_post( [
+		'ID'          => $privacy_id,
+		'post_status' => 'publish',
+	] );
+	echo "  [OK] Política de Privacidade publicada.\n";
+}
 
 echo "\n4. Limpando cache do Elementor...\n";
 if ( class_exists( '\Elementor\Plugin' ) ) {

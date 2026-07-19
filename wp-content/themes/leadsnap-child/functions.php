@@ -749,3 +749,70 @@ function leadsnap_remove_ver_param( string $src ): string {
 	}
 	return $src;
 }
+
+// ================================================================
+// 15. CUSTOM CONTACT FORM FOR ELEMENTOR FREE
+// ================================================================
+
+add_shortcode( 'leadsnap_form', 'leadsnap_free_form_shortcode' );
+function leadsnap_free_form_shortcode(): string {
+	$thankyou_url = get_permalink( get_page_by_path( 'obrigado' ) ) ?: home_url( '/obrigado' );
+	$privacy_url  = get_permalink( get_page_by_path( 'politica-de-privacidade' ) ) ?: home_url( '/politica-de-privacidade' );
+	$terms_url    = get_permalink( get_page_by_path( 'termos-de-uso' ) ) ?: home_url( '/termos-de-uso' );
+
+	ob_start();
+	?>
+	<form action="<?php echo esc_url( $thankyou_url ); ?>" method="POST" class="leadsnap-custom-form">
+		<div class="leadsnap-form-field-group">
+			<label for="ls-name" class="leadsnap-form-label"><?php esc_html_e( 'Seu nome completo', 'leadsnap-child' ); ?></label>
+			<input type="text" id="ls-name" name="leadsnap_name" placeholder="<?php esc_attr_e( 'Ex: Maria Silva', 'leadsnap-child' ); ?>" required class="leadsnap-form-input">
+		</div>
+
+		<div class="leadsnap-form-field-group">
+			<label for="ls-email" class="leadsnap-form-label"><?php esc_html_e( 'Seu melhor e-mail', 'leadsnap-child' ); ?></label>
+			<input type="email" id="ls-email" name="leadsnap_email" placeholder="<?php esc_attr_e( 'Ex: maria@email.com', 'leadsnap-child' ); ?>" required class="leadsnap-form-input">
+		</div>
+
+		<div class="leadsnap-form-field-group">
+			<label for="ls-phone" class="leadsnap-form-label"><?php esc_html_e( 'WhatsApp (opcional)', 'leadsnap-child' ); ?></label>
+			<input type="tel" id="ls-phone" name="leadsnap_phone" placeholder="<?php esc_attr_e( 'Ex: (11) 99999-0000', 'leadsnap-child' ); ?>" class="leadsnap-form-input">
+		</div>
+
+		<div class="leadsnap-form-field-group leadsnap-form-acceptance">
+			<label class="leadsnap-lgpd-label">
+				<input type="checkbox" name="leadsnap_lgpd" required value="1">
+				<span>
+					<?php
+					printf(
+						/* translators: 1: privacy policy url, 2: terms url */
+						__( 'Concordo com a <a href="%1$s" target="_blank">Política de Privacidade</a> e os <a href="%2$s" target="_blank">Termos de Uso</a>.', 'leadsnap-child' ),
+						esc_url( $privacy_url ),
+						esc_url( $terms_url )
+					);
+					?>
+				</span>
+			</label>
+		</div>
+
+		<button type="submit" class="leadsnap-cta-btn leadsnap-submit-btn ls-pulse">
+			<?php esc_html_e( 'GARANTIR MINHA VAGA AGORA 🚀', 'leadsnap-child' ); ?>
+		</button>
+	</form>
+	<?php
+	return ob_get_clean();
+}
+
+// ================================================================
+// 16. THEME SETUP ACTIONS
+// ================================================================
+
+add_action( 'after_switch_theme', 'leadsnap_theme_setup_actions' );
+function leadsnap_theme_setup_actions(): void {
+	// Habilita links amigáveis se ainda não estiver configurado
+	if ( get_option( 'permalink_structure' ) !== '/%postname%/' ) {
+		update_option( 'permalink_structure', '/%postname%/' );
+	}
+	// Garante que as regras de reescrita sejam atualizadas
+	flush_rewrite_rules( true );
+}
+
