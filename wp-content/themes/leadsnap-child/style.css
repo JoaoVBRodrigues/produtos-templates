@@ -1,0 +1,708 @@
+/*
+Theme Name:  LeadSnap — Lead Capture Template
+Theme URI:   https://github.com/JoaoVBRodrigues/leadsnap-child
+Author:      João Rodrigues
+Author URI:  https://github.com/JoaoVBRodrigues
+Description: High-conversion lead capture landing page template built with Elementor Free. Ready to reskin for any niche (groups, infoproducts, events, real estate). Includes 3 color palettes, countdown widget, LGPD consent, webhook integration, and full demo content.
+Version:     1.0.0
+Requires at least: 6.5
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       leadsnap-child
+Domain Path:       /languages
+Template:          hello-elementor
+Tags:              landing-page, lead-capture, elementor, one-page, responsive-layout, custom-colors, custom-menu, featured-images, rtl-language-support, translation-ready
+
+LeadSnap Child Theme, Copyright 2026 João Rodrigues
+LeadSnap Child Theme is distributed under the terms of the GNU GPL.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+------------------------------------------------------------------------
+Note on split licensing:
+- PHP code (functions.php and all .php files): GPL v2 or later
+- CSS, images, fonts, and other assets: See /docs/LICENSE-ASSETS.md
+  for individual asset licensing information.
+------------------------------------------------------------------------
+*/
+
+/* ================================================================
+   LEADSNAP GLOBAL DESIGN SYSTEM
+   High-conversion color system for lead generation pages.
+   
+   Palette research-backed rationale:
+   - Deep Navy (#0B1120): Trust, professionalism, premium feel
+   - Fire Orange (#FF5722): Urgency, CTA energy, action-driving
+   - Electric Amber (#FFC107): Attention, optimism, badge highlights
+   - Off-White (#F8FAFC): Readability, reduced eye fatigue vs pure white
+   
+   Switch palette by changing the variables below or via Elementor
+   Global Colors — all components use CSS variables exclusively.
+   ================================================================ */
+
+/* --------------------------------------------------------------- */
+/* PALETTE 1 — FIRE (Padrão / Default)                             */
+/* Deep Navy background + Fire Orange CTA — highest conversion     */
+/* combination for urgency-driven lead capture pages               */
+/* --------------------------------------------------------------- */
+:root {
+  /* Core Colors */
+  --ls-bg-primary:     #0B1120;   /* Deep navy — trust + premium */
+  --ls-bg-secondary:   #111827;   /* Slightly lighter for card sections */
+  --ls-bg-section:     #0F172A;   /* Section alternation */
+  --ls-bg-light:       #F8FAFC;   /* Off-white for light sections */
+
+  /* Accent — CTA / Urgency */
+  --ls-accent:         #FF5722;   /* Fire orange — primary CTA */
+  --ls-accent-hover:   #E64A19;   /* Darker on hover */
+  --ls-accent-glow:    rgba(255, 87, 34, 0.25); /* Glow effect for CTA */
+
+  /* Highlight — Badges / Countdown */
+  --ls-highlight:      #FFC107;   /* Electric amber — badges, urgency labels */
+  --ls-highlight-text: #1A1A1A;   /* Dark text on amber */
+
+  /* Success / Trust */
+  --ls-success:        #22C55E;   /* Green — checkmarks, social proof */
+  --ls-trust:          #3B82F6;   /* Blue — trust badges, testimonials */
+
+  /* Text */
+  --ls-text-primary:   #F8FAFC;   /* Main text on dark bg */
+  --ls-text-secondary: #94A3B8;   /* Muted / supporting text */
+  --ls-text-dark:      #0F172A;   /* Text on light sections */
+  --ls-text-muted:     #64748B;   /* Timestamps, legal notes */
+
+  /* Borders & Dividers */
+  --ls-border:         rgba(255, 255, 255, 0.08);
+  --ls-border-accent:  rgba(255, 87, 34, 0.3);
+
+  /* Typography Scale */
+  --ls-font-display:   'Syne', sans-serif;
+  --ls-font-body:      'DM Sans', sans-serif;
+
+  --ls-text-xs:   0.75rem;   /*  12px */
+  --ls-text-sm:   0.875rem;  /*  14px */
+  --ls-text-base: 1rem;      /*  16px — minimum for mobile */
+  --ls-text-lg:   1.125rem;  /*  18px */
+  --ls-text-xl:   1.25rem;   /*  20px */
+  --ls-text-2xl:  1.5rem;    /*  24px */
+  --ls-text-3xl:  1.875rem;  /*  30px */
+  --ls-text-4xl:  2.25rem;   /*  36px */
+  --ls-text-5xl:  3rem;      /*  48px */
+  --ls-text-6xl:  3.75rem;   /*  60px */
+
+  /* Spacing (4px base) */
+  --ls-space-1:   0.25rem;   /*   4px */
+  --ls-space-2:   0.5rem;    /*   8px */
+  --ls-space-3:   0.75rem;   /*  12px */
+  --ls-space-4:   1rem;      /*  16px */
+  --ls-space-6:   1.5rem;    /*  24px */
+  --ls-space-8:   2rem;      /*  32px */
+  --ls-space-12:  3rem;      /*  48px */
+  --ls-space-16:  4rem;      /*  64px */
+  --ls-space-24:  6rem;      /*  96px */
+
+  /* Border Radius */
+  --ls-radius-sm:   0.375rem;  /*  6px */
+  --ls-radius-md:   0.5rem;    /*  8px */
+  --ls-radius-lg:   0.75rem;   /* 12px */
+  --ls-radius-xl:   1rem;      /* 16px */
+  --ls-radius-full: 9999px;    /* Pills */
+
+  /* Shadows */
+  --ls-shadow-sm:  0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --ls-shadow-md:  0 4px 6px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4);
+  --ls-shadow-lg:  0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(0,0,0,0.4);
+  --ls-shadow-cta: 0 8px 32px var(--ls-accent-glow), 0 2px 8px rgba(0,0,0,0.4);
+  --ls-shadow-glow: 0 0 40px var(--ls-accent-glow);
+
+  /* Z-index scale */
+  --ls-z-base:    10;
+  --ls-z-dropdown: 20;
+  --ls-z-sticky:  30;
+  --ls-z-modal:   50;
+
+  /* Transitions */
+  --ls-transition-fast:   150ms ease-out;
+  --ls-transition-base:   200ms ease-out;
+  --ls-transition-slow:   300ms ease-out;
+}
+
+/* --------------------------------------------------------------- */
+/* PALETTE 2 — VERDE NEON (Dark Mode + Growth)                     */
+/* Para nichos de saúde, dinheiro, investimentos, cashback          */
+/* Activate: add class .ls-palette-neon to <body>                  */
+/* --------------------------------------------------------------- */
+.ls-palette-neon {
+  --ls-bg-primary:    #060D14;
+  --ls-bg-secondary:  #0A1628;
+  --ls-bg-section:    #0D1F33;
+  --ls-accent:        #00E676;
+  --ls-accent-hover:  #00C853;
+  --ls-accent-glow:   rgba(0, 230, 118, 0.25);
+  --ls-highlight:     #FFD600;
+  --ls-success:       #00E676;
+  --ls-trust:         #40C4FF;
+  --ls-text-primary:  #E8F5E9;
+  --ls-text-secondary:#90A4AE;
+  --ls-border:        rgba(0, 230, 118, 0.12);
+  --ls-border-accent: rgba(0, 230, 118, 0.35);
+  --ls-shadow-cta:    0 8px 32px rgba(0, 230, 118, 0.3), 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* --------------------------------------------------------------- */
+/* PALETTE 3 — ALTO CONTRASTE (Accessibility First)                */
+/* WCAG AAA — para mercados amplos e acessibilidade obrigatória     */
+/* Activate: add class .ls-palette-contrast to <body>              */
+/* --------------------------------------------------------------- */
+.ls-palette-contrast {
+  --ls-bg-primary:    #FFFFFF;
+  --ls-bg-secondary:  #F1F5F9;
+  --ls-bg-section:    #E2E8F0;
+  --ls-accent:        #B91C1C;   /* Deep red — 7:1 on white (WCAG AAA) */
+  --ls-accent-hover:  #991B1B;
+  --ls-accent-glow:   rgba(185, 28, 28, 0.2);
+  --ls-highlight:     #1D4ED8;   /* Deep blue badge — 8.6:1 on white */
+  --ls-highlight-text:#FFFFFF;
+  --ls-success:       #15803D;   /* Dark green — 4.7:1 */
+  --ls-trust:         #1D4ED8;
+  --ls-text-primary:  #0F172A;   /* Slate 900 — not pure black, less strain */
+  --ls-text-secondary:#334155;   /* 7.5:1 on white */
+  --ls-text-dark:     #0F172A;
+  --ls-text-muted:    #475569;   /* 4.6:1 on white */
+  --ls-border:        #CBD5E1;
+  --ls-border-accent: #3B82F6;
+  --ls-shadow-cta:    0 4px 16px rgba(185, 28, 28, 0.3);
+}
+
+/* ================================================================
+   BASE STYLES
+   ================================================================ */
+
+/* Font loading — display=swap prevents FOIT */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
+
+/* Reset & Box Model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--ls-font-body);
+  font-size: var(--ls-text-base);
+  line-height: 1.6;
+  color: var(--ls-text-primary);
+  background-color: var(--ls-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+
+h1, h2, h3, h4, h5, h6,
+.leadsnap-headline {
+  font-family: var(--ls-font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ls-text-primary);
+}
+
+h1, .ls-h1 { font-size: clamp(2rem, 5vw, var(--ls-text-6xl)); font-weight: 800; }
+h2, .ls-h2 { font-size: clamp(1.5rem, 4vw, var(--ls-text-4xl)); }
+h3, .ls-h3 { font-size: clamp(1.25rem, 3vw, var(--ls-text-2xl)); }
+
+p {
+  font-size: var(--ls-text-base);
+  line-height: 1.75;
+  color: var(--ls-text-secondary);
+  max-width: 68ch; /* ~65-75 char line length for readability */
+}
+
+/* ================================================================
+   CTA BUTTON
+   ================================================================ */
+
+.leadsnap-cta-btn,
+.elementor-button.leadsnap-cta,
+a.leadsnap-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ls-space-2);
+  padding: var(--ls-space-4) var(--ls-space-8);
+  background: var(--ls-accent);
+  color: #FFFFFF;
+  font-family: var(--ls-font-display);
+  font-size: var(--ls-text-lg);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--ls-radius-lg);
+  cursor: pointer;
+  box-shadow: var(--ls-shadow-cta);
+  transition:
+    background var(--ls-transition-base),
+    box-shadow var(--ls-transition-base),
+    transform var(--ls-transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.leadsnap-cta-btn:hover,
+.elementor-button.leadsnap-cta:hover {
+  background: var(--ls-accent-hover);
+  box-shadow: var(--ls-shadow-glow), var(--ls-shadow-cta);
+  transform: translateY(-2px);
+  color: #FFFFFF;
+}
+
+.leadsnap-cta-btn:active {
+  transform: translateY(0);
+}
+
+/* CTA pulse animation — draws eye to primary action */
+@keyframes ls-pulse {
+  0%, 100% { box-shadow: var(--ls-shadow-cta); }
+  50%       { box-shadow: var(--ls-shadow-glow), var(--ls-shadow-cta); }
+}
+
+.leadsnap-cta-btn.ls-pulse {
+  animation: ls-pulse 2.5s ease-in-out infinite;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .leadsnap-cta-btn.ls-pulse {
+    animation: none;
+  }
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* ================================================================
+   URGENCY BADGE
+   ================================================================ */
+
+.leadsnap-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ls-space-2);
+  padding: var(--ls-space-2) var(--ls-space-4);
+  background: var(--ls-highlight);
+  color: var(--ls-highlight-text);
+  font-family: var(--ls-font-body);
+  font-size: var(--ls-text-sm);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: var(--ls-radius-full);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.leadsnap-badge::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--ls-accent);
+  border-radius: 50%;
+  animation: ls-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes ls-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leadsnap-badge::before { animation: none; }
+}
+
+/* ================================================================
+   COUNTDOWN TIMER
+   ================================================================ */
+
+.leadsnap-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ls-space-3);
+  flex-wrap: wrap;
+}
+
+.ls-countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ls-space-1);
+  min-width: 72px;
+}
+
+.ls-countdown-number {
+  font-family: var(--ls-font-display);
+  font-size: var(--ls-text-4xl);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ls-text-primary);
+  background: var(--ls-bg-secondary);
+  border: 1px solid var(--ls-border-accent);
+  border-radius: var(--ls-radius-lg);
+  padding: var(--ls-space-3) var(--ls-space-4);
+  min-width: 72px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  transition: transform var(--ls-transition-fast);
+}
+
+.ls-countdown-number.ls-tick {
+  transform: scale(1.05);
+}
+
+.ls-countdown-label {
+  font-family: var(--ls-font-body);
+  font-size: var(--ls-text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ls-text-secondary);
+}
+
+.ls-countdown-separator {
+  font-family: var(--ls-font-display);
+  font-size: var(--ls-text-3xl);
+  font-weight: 800;
+  color: var(--ls-accent);
+  line-height: 1;
+  padding-bottom: var(--ls-space-4); /* align with number, offset from label */
+}
+
+/* Expired state */
+.leadsnap-countdown.ls-expired .ls-countdown-number {
+  color: var(--ls-text-muted);
+  border-color: var(--ls-border);
+}
+
+/* ================================================================
+   HERO SECTION
+   ================================================================ */
+
+.leadsnap-hero {
+  min-height: 100vh;
+  background: var(--ls-bg-primary);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: var(--ls-space-24) var(--ls-space-8);
+}
+
+/* Decorative background gradient */
+.leadsnap-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(255,87,34,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 100% 80%, rgba(255,193,7,0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ================================================================
+   SOCIAL PROOF SECTION
+   ================================================================ */
+
+.leadsnap-testimonial-card {
+  background: var(--ls-bg-secondary);
+  border: 1px solid var(--ls-border);
+  border-radius: var(--ls-radius-xl);
+  padding: var(--ls-space-8);
+  transition: border-color var(--ls-transition-base), transform var(--ls-transition-base);
+  cursor: default;
+}
+
+.leadsnap-testimonial-card:hover {
+  border-color: var(--ls-border-accent);
+  transform: translateY(-3px);
+  box-shadow: var(--ls-shadow-lg);
+}
+
+.ls-avatar-initials {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ls-accent);
+  color: #fff;
+  font-family: var(--ls-font-display);
+  font-weight: 700;
+  font-size: var(--ls-text-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ls-stars {
+  color: var(--ls-highlight);
+  font-size: var(--ls-text-sm);
+  letter-spacing: 2px;
+}
+
+/* Counter number animation */
+.ls-counter {
+  font-family: var(--ls-font-display);
+  font-size: var(--ls-text-5xl);
+  font-weight: 800;
+  color: var(--ls-text-primary);
+  line-height: 1;
+}
+
+/* ================================================================
+   FORM SECTION
+   ================================================================ */
+
+.leadsnap-form-wrapper {
+  background: var(--ls-bg-secondary);
+  border: 1px solid var(--ls-border);
+  border-radius: var(--ls-radius-xl);
+  padding: var(--ls-space-12) var(--ls-space-8);
+  position: relative;
+  overflow: hidden;
+}
+
+.leadsnap-form-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ls-accent), var(--ls-highlight));
+}
+
+/* Elementor form field override */
+.leadsnap-form-wrapper .elementor-field-group input,
+.leadsnap-form-wrapper .elementor-field-group select,
+.leadsnap-form-wrapper .elementor-field-group textarea {
+  background: var(--ls-bg-section) !important;
+  border: 1px solid var(--ls-border) !important;
+  border-radius: var(--ls-radius-md) !important;
+  color: var(--ls-text-primary) !important;
+  font-family: var(--ls-font-body) !important;
+  font-size: var(--ls-text-base) !important;
+  padding: 14px 16px !important;
+  transition: border-color var(--ls-transition-base) !important;
+}
+
+.leadsnap-form-wrapper .elementor-field-group input:focus,
+.leadsnap-form-wrapper .elementor-field-group select:focus {
+  border-color: var(--ls-accent) !important;
+  outline: 2px solid var(--ls-accent-glow) !important;
+}
+
+/* LGPD Checkbox */
+.leadsnap-lgpd-label {
+  font-size: var(--ls-text-sm);
+  color: var(--ls-text-secondary);
+  line-height: 1.6;
+}
+
+.leadsnap-lgpd-label a {
+  color: var(--ls-accent);
+  text-decoration: underline;
+}
+
+/* ================================================================
+   BENEFITS SECTION
+   ================================================================ */
+
+.leadsnap-benefit-card {
+  background: var(--ls-bg-secondary);
+  border: 1px solid var(--ls-border);
+  border-radius: var(--ls-radius-xl);
+  padding: var(--ls-space-8);
+  text-align: center;
+  transition: border-color var(--ls-transition-base), box-shadow var(--ls-transition-slow);
+}
+
+.leadsnap-benefit-card:hover {
+  border-color: var(--ls-border-accent);
+  box-shadow: var(--ls-shadow-md);
+}
+
+.leadsnap-benefit-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--ls-accent-glow);
+  border-radius: var(--ls-radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--ls-space-4);
+  color: var(--ls-accent);
+}
+
+/* ================================================================
+   FAQ SECTION
+   ================================================================ */
+
+.leadsnap-faq-item {
+  border-bottom: 1px solid var(--ls-border);
+  padding: var(--ls-space-4) 0;
+}
+
+.leadsnap-faq-question {
+  font-family: var(--ls-font-display);
+  font-size: var(--ls-text-lg);
+  font-weight: 600;
+  color: var(--ls-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ls-space-4);
+  padding: var(--ls-space-2) 0;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+/* ================================================================
+   SECTION UTILITIES
+   ================================================================ */
+
+.ls-section-dark { background: var(--ls-bg-primary); }
+.ls-section-alt  { background: var(--ls-bg-section); }
+.ls-section-light { background: var(--ls-bg-light); }
+
+.ls-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--ls-space-8);
+  width: 100%;
+}
+
+.ls-section-padding {
+  padding: var(--ls-space-24) 0;
+}
+
+/* Section entrance animation */
+@keyframes ls-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ls-animate-up {
+  animation: ls-fade-up 0.4s ease-out both;
+}
+
+.ls-animate-up.ls-delay-1 { animation-delay: 0.1s; }
+.ls-animate-up.ls-delay-2 { animation-delay: 0.2s; }
+.ls-animate-up.ls-delay-3 { animation-delay: 0.3s; }
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+
+.leadsnap-footer {
+  background: var(--ls-bg-section);
+  border-top: 1px solid var(--ls-border);
+  padding: var(--ls-space-8) 0;
+  text-align: center;
+}
+
+.leadsnap-footer a {
+  color: var(--ls-text-secondary);
+  text-decoration: none;
+  font-size: var(--ls-text-sm);
+  transition: color var(--ls-transition-fast);
+}
+
+.leadsnap-footer a:hover {
+  color: var(--ls-accent);
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+
+@media (max-width: 768px) {
+  .leadsnap-countdown {
+    gap: var(--ls-space-2);
+  }
+
+  .ls-countdown-unit {
+    min-width: 56px;
+  }
+
+  .ls-countdown-number {
+    font-size: var(--ls-text-2xl);
+    min-width: 56px;
+    padding: var(--ls-space-2) var(--ls-space-3);
+  }
+
+  .leadsnap-form-wrapper {
+    padding: var(--ls-space-8) var(--ls-space-4);
+  }
+
+  .ls-container {
+    padding: 0 var(--ls-space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  h1, .ls-h1 {
+    font-size: 1.875rem; /* 30px — still impactful on small mobile */
+  }
+
+  .leadsnap-cta-btn {
+    width: 100%;
+    padding: var(--ls-space-4) var(--ls-space-4);
+    font-size: var(--ls-text-base);
+  }
+}
+
+/* ================================================================
+   ACCESSIBILITY — FOCUS STATES
+   Always visible for keyboard navigation
+   ================================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--ls-accent);
+  outline-offset: 3px;
+  border-radius: var(--ls-radius-sm);
+}
+
+/* ================================================================
+   PRINT
+   ================================================================ */
+
+@media print {
+  .leadsnap-countdown,
+  .leadsnap-badge::before {
+    animation: none;
+  }
+}
