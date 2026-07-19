@@ -651,8 +651,9 @@ function ls_build_thank_you_data(): array {
 				'background_color'      => '#0B1120',
 				'min_height'            => [ 'unit' => 'vh', 'size' => 100 ],
 				'content_position'      => 'middle',
-				'padding'               => [ 'top' => '80', 'right' => '20', 'bottom' => '80', 'left' => '20', 'unit' => 'px', 'isLinked' => false ],
+				'padding'               => [ 'top' => '80', 'right' => '24', 'bottom' => '80', 'left' => '24', 'unit' => 'px', 'isLinked' => false ],
 				'layout'                => 'full_width',
+				'css_classes'           => 'leadsnap-thankyou-section',
 			],
 			'elements' => [
 				[

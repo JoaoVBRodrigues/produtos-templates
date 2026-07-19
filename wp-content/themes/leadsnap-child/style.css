@@ -206,7 +206,7 @@ body {
   font-size: var(--ls-text-base);
   line-height: 1.6;
   color: var(--ls-text-primary);
-  background-color: var(--ls-bg-primary);
+  background-color: var(--ls-bg-primary) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -807,6 +807,18 @@ a.leadsnap-cta {
 .leadsnap-submit-btn {
   width: 100%;
   margin-top: var(--ls-space-2);
+}
+
+/* ================================================================
+   THANK YOU SECTION SPECIFIC STYLE
+   ================================================================ */
+
+.leadsnap-thankyou-section {
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 /* ================================================================

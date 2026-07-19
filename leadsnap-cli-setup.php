@@ -438,6 +438,7 @@ function ls_thankyou_data(): array {
 			'content_position'      => 'middle',
 			'padding'               => [ 'top' => '80', 'right' => '24', 'bottom' => '80', 'left' => '24', 'unit' => 'px', 'isLinked' => false ],
 			'layout'                => 'full_width',
+			'css_classes'           => 'leadsnap-thankyou-section',
 		],
 		'elements' => [ [
 			'id' => ls_uid(), 'elType' => 'column',
