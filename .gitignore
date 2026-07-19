@@ -16,3 +16,6 @@ Thumbs.db
 .env
 .env.local
 /vendor/
+wp-content/plugins/
+wp-content/themes/*
+!wp-content/themes/leadsnap-child/
