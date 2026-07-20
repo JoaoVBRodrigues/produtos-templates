@@ -825,22 +825,19 @@ a.leadsnap-cta {
    CENTERING AND LAYOUT REFINE
    ================================================================ */
 
-/* Center all widgets inside Elementor column wrappers */
+/* Center all Elementor widgets horizontally inside columns */
 .elementor-column .elementor-widget-wrap {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
   text-align: center !important;
+}
+
+.elementor-widget {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 /* Center custom footer links and copyright block */
 .leadsnap-footer {
   width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
   text-align: center !important;
   margin: 0 auto !important;
 }
