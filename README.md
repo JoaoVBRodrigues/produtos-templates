@@ -3,6 +3,10 @@
 [![WordPress Child Theme](https://img.shields.io/badge/WordPress%20Child%20Theme-Hello%20Elementor-blue.svg)](https://wordpress.org/themes/hello-elementor/)
 [![Elementor Free Compatible](https://img.shields.io/badge/Elementor-Free-green.svg)](https://wordpress.org/plugins/elementor/)
 [![LGPD Ready](https://img.shields.io/badge/LGPD-Conformidade-orange.svg)]()
+[![Live Demo](https://img.shields.io/badge/Live-Demo%20on%20Vercel-brightgreen.svg)](https://leadsnap-landing-page.vercel.app)
+
+✨ **Demonstração Online:** [https://leadsnap-landing-page.vercel.app](https://leadsnap-landing-page.vercel.app)
+
 
 Um template premium de landing page e página de captura de alta performance construído para o ecossistema **WordPress**. Este projeto demonstra o desenvolvimento de um **Tema Filho (Child Theme)** customizado e altamente otimizado para o **Hello Elementor**, utilizando exclusivamente a versão **gratuita** do Elementor e customizações robustas em CSS e PHP para oferecer funcionalidades premium sem custos de licenças adicionais.
 
