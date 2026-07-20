@@ -417,6 +417,7 @@ function ls_landing_data(): array {
 </p>
 <p style="color:#1E293B;font-family:\'DM Sans\',sans-serif;font-size:13px;margin:0">© ' . gmdate('Y') . ' LeadSnap · Template de demonstração</p>
 </div>',
+						'css_classes' => 'leadsnap-footer-widget',
 					] ],
 
 				],

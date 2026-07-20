@@ -625,6 +625,7 @@ function ls_build_landing_page_data(): array {
     <small style="color:#1E293B">Este é um template de demonstração. Substitua com seus dados reais.</small>
   </p>
 </div>',
+								'css_classes' => 'leadsnap-footer-widget',
 							],
 						],
 
