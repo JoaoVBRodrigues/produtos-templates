@@ -19,3 +19,10 @@ Thumbs.db
 wp-content/plugins/
 wp-content/themes/*
 !wp-content/themes/leadsnap-child/
+
+# Setup & testing scripts
+leadsnap-cli-setup.php
+leadsnap-setup.php
+leadsnap-test.php
+produto-template-pagina-captura-elementor.md
+
