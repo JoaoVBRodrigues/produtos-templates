@@ -109,12 +109,12 @@ function ls_landing_data(): array {
 
 					// Subheadline
 					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'text-editor', 'settings' => [
-						'editor' => '<p style="text-align:center;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:19px;line-height:1.75;max-width:640px;margin:0 auto 32px">Entre no grupo exclusivo e receba cupons de <strong style="color:#F8FAFC">até 80% OFF</strong> diretamente no seu WhatsApp — sem custo algum.</p>',
+						'editor' => '<div style="display:flex;justify-content:center;align-items:center;text-align:center;width:100%;"><p style="text-align:center;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:19px;line-height:1.75;max-width:640px;margin:0 auto 32px">Entre no grupo exclusivo e receba cupons de <strong style="color:#F8FAFC">até 80% OFF</strong> diretamente no seu WhatsApp — sem custo algum.</p></div>',
 					] ],
 
 					// Countdown
 					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'html', 'settings' => [
-						'html' => '<div style="text-align:center;margin-bottom:36px"><p style="color:#64748B;font-family:\'DM Sans\',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">⏱ Oferta expira em:</p>' . do_shortcode( '[leadsnap_countdown evergreen="1" days="3"]' ) . '</div>',
+						'html' => '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-bottom:36px;width:100%"><p style="color:#64748B;font-family:\'DM Sans\',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">⏱ Oferta expira em:</p>' . do_shortcode( '[leadsnap_countdown evergreen="1" days="3"]' ) . '</div>',
 					] ],
 
 					// CTA Button
@@ -139,7 +139,7 @@ function ls_landing_data(): array {
 
 					// Social proof note
 					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'html', 'settings' => [
-						'html' => '<p style="text-align:center;color:#475569;font-family:\'DM Sans\',sans-serif;font-size:13px;margin:0">🔒 Grátis · Sem spam · Cancele quando quiser</p>',
+						'html' => '<div style="display:flex;justify-content:center;align-items:center;text-align:center;width:100%"><p style="color:#475569;font-family:\'DM Sans\',sans-serif;font-size:13px;margin:0">🔒 Grátis · Sem spam · Cancele quando quiser</p></div>',
 					] ],
 
 				],
@@ -302,7 +302,7 @@ function ls_landing_data(): array {
 					] ],
 
 					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'text-editor', 'settings' => [
-						'editor' => '<p style="text-align:center;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:17px;margin-bottom:40px">Preencha abaixo e receba o acesso em menos de 1 minuto</p>',
+						'editor' => '<div style="display:flex;justify-content:center;align-items:center;text-align:center;width:100%;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:17px;margin-bottom:40px">Preencha abaixo e receba o acesso em menos de 1 minuto</div>',
 					] ],
 
 					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'html', 'settings' => [
@@ -410,7 +410,7 @@ function ls_landing_data(): array {
 
 					// Footer links
 					[ 'id' => ls_uid(), 'elType' => 'widget', 'widgetType' => 'html', 'settings' => [
-						'html' => '<div style="text-align:center;border-top:1px solid rgba(255,255,255,.06);padding-top:32px">
+						'html' => '<div class="leadsnap-footer" style="text-align:center;border-top:1px solid rgba(255,255,255,.06);padding-top:32px">
 <p style="color:#334155;font-family:\'DM Sans\',sans-serif;font-size:14px;margin-bottom:12px">
   <a href="/politica-de-privacidade" style="color:#475569;text-decoration:none;margin:0 12px">Política de Privacidade</a>
   · <a href="/termos-de-uso" style="color:#475569;text-decoration:none;margin:0 12px">Termos de Uso</a>
@@ -515,13 +515,20 @@ update_option( 'permalink_structure', '/%postname%/' );
 flush_rewrite_rules( true );
 echo "  [OK] Permalinks amigáveis configurados (/%postname%/)\n";
 
-// Garante que a página de política de privacidade esteja publicada (não em rascunho)
+// Garante que as páginas de política de privacidade e termos de uso estejam publicadas
 if ( $privacy_id ) {
 	wp_update_post( [
 		'ID'          => $privacy_id,
 		'post_status' => 'publish',
 	] );
 	echo "  [OK] Política de Privacidade publicada.\n";
+}
+if ( $terms_id ) {
+	wp_update_post( [
+		'ID'          => $terms_id,
+		'post_status' => 'publish',
+	] );
+	echo "  [OK] Termos de Uso publicado.\n";
 }
 
 echo "\n4. Limpando cache do Elementor...\n";

@@ -160,7 +160,7 @@ function ls_build_landing_page_data(): array {
 							'elType'     => 'widget',
 							'widgetType' => 'text-editor',
 							'settings'   => [
-								'editor'   => '<p style="text-align:center;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:20px;line-height:1.7;max-width:620px;margin:0 auto 32px">Entre no grupo exclusivo e receba cupons de <strong style="color:#F8FAFC">até 80% OFF</strong> diretamente no seu WhatsApp — sem custo algum.</p>',
+								'editor'   => '<div style="display:flex;justify-content:center;align-items:center;text-align:center;width:100%;"><p style="text-align:center;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:20px;line-height:1.7;max-width:620px;margin:0 auto 32px">Entre no grupo exclusivo e receba cupons de <strong style="color:#F8FAFC">até 80% OFF</strong> diretamente no seu WhatsApp — sem custo algum.</p></div>',
 							],
 						],
 
@@ -170,7 +170,7 @@ function ls_build_landing_page_data(): array {
 							'elType'     => 'widget',
 							'widgetType' => 'html',
 							'settings'   => [
-								'html' => '<div style="text-align:center;margin-bottom:32px"><p style="color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">⏱ Oferta expira em:</p>' . do_shortcode( '[leadsnap_countdown evergreen="1" days="3"]' ) . '</div>',
+								'html' => '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin-bottom:32px;width:100%"><p style="color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">⏱ Oferta expira em:</p>' . do_shortcode( '[leadsnap_countdown evergreen="1" days="3"]' ) . '</div>',
 							],
 						],
 
@@ -205,7 +205,7 @@ function ls_build_landing_page_data(): array {
 							'elType'     => 'widget',
 							'widgetType' => 'html',
 							'settings'   => [
-								'html' => '<p style="text-align:center;color:#64748B;font-family:\'DM Sans\',sans-serif;font-size:13px;margin-top:8px">🔒 Grátis · Sem spam · Cancele quando quiser</p>',
+								'html' => '<div style="display:flex;justify-content:center;align-items:center;text-align:center;width:100%"><p style="color:#64748B;font-family:\'DM Sans\',sans-serif;font-size:13px;margin-top:8px">🔒 Grátis · Sem spam · Cancele quando quiser</p></div>',
 							],
 						],
 
@@ -443,13 +443,12 @@ function ls_build_landing_page_data(): array {
 							],
 						],
 
-						// Sub do formulário
 						[
 							'id'         => ls_uid(),
 							'elType'     => 'widget',
 							'widgetType' => 'text-editor',
 							'settings'   => [
-								'editor' => '<p style="text-align:center;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:17px;margin-bottom:40px">Preencha abaixo e receba o acesso em menos de 1 minuto</p>',
+								'editor' => '<div style="display:flex;justify-content:center;align-items:center;text-align:center;width:100%;color:#94A3B8;font-family:\'DM Sans\',sans-serif;font-size:17px;margin-bottom:40px">Preencha abaixo e receba o acesso em menos de 1 minuto</div>',
 							],
 						],
 
@@ -805,7 +804,7 @@ $results[] = [
 	'id'    => null,
 ];
 
-// Garante que a página de política de privacidade esteja publicada
+// Garante que as páginas de política de privacidade e termos de uso estejam publicadas
 $privacy_page = get_page_by_path( 'politica-de-privacidade' );
 if ( $privacy_page ) {
 	wp_update_post( [
@@ -816,6 +815,18 @@ if ( $privacy_page ) {
 		'label' => '✅ Política de Privacidade publicada',
 		'value' => get_permalink( $privacy_page->ID ),
 		'id'    => $privacy_page->ID,
+	];
+}
+$terms_page = get_page_by_path( 'termos-de-uso' );
+if ( $terms_page ) {
+	wp_update_post( [
+		'ID'          => $terms_page->ID,
+		'post_status' => 'publish',
+	] );
+	$results[] = [
+		'label' => '✅ Termos de Uso publicado',
+		'value' => get_permalink( $terms_page->ID ),
+		'id'    => $terms_page->ID,
 	];
 }
 
